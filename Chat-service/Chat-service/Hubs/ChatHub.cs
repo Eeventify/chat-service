@@ -5,16 +5,21 @@ namespace Chat_service.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string user, string message, string room, bool join)
+        public async Task SendMessage(string user, string message, string room, bool join, bool leave)
         {
-            if (join)
+            if (leave)
+            {
+                await Clients.Group(room).SendAsync("ReceiveMessage", user, " joined " + room);
+                await LeaveRoom(room);
+            }
+            else if (join)
             {
                 await JoinRoom(room).ConfigureAwait(false);
                 await Clients.Group(room).SendAsync("ReceiveMessage", user, " joined " + room).ConfigureAwait(true);
             }
             else
             {
-                await Clients.Group(room).SendAsync("ReceiveMessage", user, message).ConfigureAwait(true);
+                await Clients.Group(room).SendAsync("ReceiveMessage", user, message);
             }
             ChatMessage newchatmessage = new() { ChatRoom = room, Message = message, User = user}; // save in db
         }
