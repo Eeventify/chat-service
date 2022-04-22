@@ -590,3 +590,6 @@ obj/
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,dotnetcore,csharp
+
+# API documentation
+Chat-service/Chat-service/api-chat.yaml
