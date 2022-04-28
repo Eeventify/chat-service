@@ -6,5 +6,6 @@
         public string? Message { get; set; }
         public string? User { get; set; }
         public string? ChatRoom { get; set; }
+        public DateTime? Timestamp { get; set; }
     }
 }
